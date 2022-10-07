@@ -9,7 +9,7 @@ const chartData = reactive({
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
-      data: [1, 100, 1, 100, 1, 100, 1, 100]
+      data: [7, 10, 8, 15, 20, 22, 17]
     }
   ]
 })
