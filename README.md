@@ -1,7 +1,13 @@
-# Vue 3 + Vite
+# Draw a Line
+Draw a Line is app that helps you to draw beatiful and elegant line, you can:
+- Input point values
+- Adjust line width
+- Adjust line color
+- Adjust line tension
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## TODO
+<input type="checkbox" disabled checked/> Adjust line width<br>
+<input type="checkbox" disabled checked/> Adjust line tension<br>
+<input type="checkbox" disabled /> Input point values<br>
+<input type="checkbox" disabled /> Adjust line color<br>
+<input type="checkbox" disabled /> Download as file<br>
