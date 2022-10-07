@@ -16,7 +16,7 @@ const chartData = reactive({
 
 const chartOptions = reactive({
   layout: {
-    padding: 50
+    padding: 75
   },
   responsive: true,
   maintainAspectRatio: true,
@@ -67,8 +67,9 @@ const copyLineCanvas = () => {
 
 <template >
   <div class="p-10 flex">
-    <div class="w-2/3 flex flex-col items-center">
-      <LineCanvas class="border p-5" chart-id="line-canvas" :chartData="chartData" :chartOptions="chartOptions" />
+    <div class="w-3/5 flex flex-col items-center">
+      <LineCanvas class="border rounded-lg" chart-id="line-canvas" :chartData="chartData"
+        :chartOptions="chartOptions" />
 
       <div class="flex justify-center mt-10">
         <button
@@ -86,7 +87,7 @@ const copyLineCanvas = () => {
 
     </div>
 
-    <div class="grow p-10">
+    <div class="grow pl-5 mr-10">
       Tension
       <VueSlider class="mb-5" v-model="tension" min="0" max="100" interval="1" @change="handleTensionChange"
         :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}">
