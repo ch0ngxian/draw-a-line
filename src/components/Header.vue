@@ -4,7 +4,7 @@
   
 <template>
   <div class="flex p-5 items-center">
-    <div class="p-2 bg-gray-800 rounded mr-3">
+    <div class="p-2 bg-gray-800 rounded-lg mr-3">
       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-writing-sign" width="24" height="24"
         viewBox="0 0 24 24" stroke-width="1.5" stroke="white" fill="none" stroke-linecap="round"
         stroke-linejoin="round">
