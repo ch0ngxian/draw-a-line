@@ -48,12 +48,18 @@ const chartOptions = reactive({
     },
   }
 })
+const tension = ref(30)
 
 const handleTensionChange = (value) => {
-  chartOptions.elements.line.tension = value / 100
+  chartOptions.elements.line.tension = value / 100;
+
+  handleTensionChange(tension - 1);
+  handleTensionChange(tension + 1);
 }
 
-const tension = ref(30)
+const handleWidthChange = (value) => {
+  chartOptions.elements.line.width = value
+}
 
 const copyLineCanvas = () => {
   const canvas = document.getElementById("line-canvas")
@@ -133,7 +139,7 @@ const downloadAsImage = () => {
       <div>
         Color
         <div class="mt-1 mb-2">
-          <ColorInput v-model="chartOptions.elements.line.borderColor" />
+          <ColorInput v-model="chartOptions.elements.line.borderColor" ref="colorInput" />
         </div>
 
         Tension
@@ -143,7 +149,8 @@ const downloadAsImage = () => {
 
         Line width
         <VueSlider v-model="chartOptions.elements.line.borderWidth" min="1" max="100" interval="1"
-          :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}"></VueSlider>
+          :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}"
+          @change="handleWidthChange"></VueSlider>
       </div>
 
     </div>
@@ -151,6 +158,36 @@ const downloadAsImage = () => {
   </div>
 </template>
 
-<style scoped>
+<style>
+.color-input.user .box {
+  @apply rounded-lg;
+}
 
+.color-input.user .picker-popup {
+  @apply rounded-lg;
+}
+
+.color-input.user .saturation-area {
+  @apply rounded-lg;
+}
+
+.color-input.user .saturation-area .slider-canvas {
+  @apply rounded-t-lg;
+}
+
+.color-input.user .saturation-area .saturation-pointer {
+  @apply cursor-pointer;
+}
+
+.color-input.user .picker-popup {
+  @apply shadow-none border;
+}
+
+.color-input.user .slider-pointer {
+  @apply w-5 h-5 cursor-pointer;
+}
+
+.color-input.user .text-input {
+  @apply border rounded;
+}
 </style>
