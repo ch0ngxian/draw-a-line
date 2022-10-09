@@ -6,10 +6,10 @@ import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 
 const chartData = reactive({
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
-      data: [7, 10, 8, 15, 20, 22, 17]
+      data: [7, 10, 8, 15, 20, 22, 17, 7, 10, 8, 15, 20, 22, 17, 7, 10, 8, 15, 20, 22, 17, 7, 10, 8, 15, 20, 22, 17]
     }
   ]
 })
@@ -63,10 +63,15 @@ const copyLineCanvas = () => {
   });
 
 }
+
+const addPoint = () => {
+  chartData.labels.push(0)
+  chartData.datasets[0].data.push(0)
+}
 </script>
 
 <template >
-  <div class="p-10 flex">
+  <div class="p-10 flex w-full">
     <div class="w-3/5 flex flex-col items-center">
       <LineCanvas class="border rounded-lg" chart-id="line-canvas" :chartData="chartData"
         :chartOptions="chartOptions" />
@@ -87,15 +92,38 @@ const copyLineCanvas = () => {
 
     </div>
 
-    <div class="grow pl-5 mr-10">
-      Tension
-      <VueSlider class="mb-5" v-model="tension" min="0" max="100" interval="1" @change="handleTensionChange"
-        :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}">
-      </VueSlider>
+    <div class="grow pl-5 mr-10 w-[calc(100%/3-1rem)]">
 
-      Line width
-      <VueSlider v-model="chartOptions.elements.line.borderWidth" min="1" max="100" interval="1"
-        :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}"></VueSlider>
+      <div class="mb-10">
+        Data
+        <div class="flex overflow-scroll">
+          <template v-for="(item, index) in chartData.datasets[0].data" :key="index">
+            <input class="border p-2 rounded mr-1 mt-2 w-14" v-model="chartData.datasets[0].data[index]" />
+          </template>
+        </div>
+        <button
+          class="mt-3 group relative flex justify-center rounded-md border border-transparent bg-gray-700 py-2 px-4 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
+          @click="addPoint">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="white" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+      </div>
+      <div>
+        Tension
+        <VueSlider class="mb-5" v-model="tension" min="0" max="100" interval="1" @change="handleTensionChange"
+          :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}">
+        </VueSlider>
+
+        Line width
+        <VueSlider v-model="chartOptions.elements.line.borderWidth" min="1" max="100" interval="1"
+          :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}"></VueSlider>
+      </div>
+
     </div>
 
   </div>
