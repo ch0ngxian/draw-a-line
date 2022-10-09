@@ -70,6 +70,17 @@ const addPoint = () => {
   chartData.datasets[0].data.push(0)
 }
 
+
+const downloadAsImage = () => {
+  const canvas = document.getElementById("line-canvas")
+
+  const link = document.createElement('a');
+
+  link.download = 'line.png';
+  link.href = canvas.toDataURL("image/png")
+  link.click();
+}
+
 </script>
 
 <template >
@@ -85,9 +96,9 @@ const addPoint = () => {
           Copy
         </button>
 
-        <button v-if="false"
+        <button
           class="m-1 group relative flex justify-center rounded-md border border-transparent bg-gray-700 py-2 px-4 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
-          @click="copyLineCanvas">
+          @click="downloadAsImage">
           Download
         </button>
       </div>
