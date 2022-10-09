@@ -52,14 +52,9 @@ const tension = ref(30)
 
 const handleTensionChange = (value) => {
   chartOptions.elements.line.tension = value / 100;
-
-  handleTensionChange(tension - 1);
-  handleTensionChange(tension + 1);
 }
 
-const handleWidthChange = (value) => {
-  chartOptions.elements.line.width = value
-}
+
 
 const copyLineCanvas = () => {
   const canvas = document.getElementById("line-canvas")
@@ -149,8 +144,7 @@ const downloadAsImage = () => {
 
         Line width
         <VueSlider v-model="chartOptions.elements.line.borderWidth" min="1" max="100" interval="1"
-          :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}"
-          @change="handleWidthChange"></VueSlider>
+          :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}"></VueSlider>
       </div>
 
     </div>
