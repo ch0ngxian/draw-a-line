@@ -4,12 +4,13 @@ import LineCanvas from "../components/LineCanvas.vue";
 import Setting from "../components/Setting.vue";
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
+import { ColorPicker } from 'vue-accessible-color-picker'
 
 const chartData = reactive({
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: [0, 1, 2, 3, 4, 5, 6],
   datasets: [
     {
-      data: [7, 10, 8, 15, 20, 22, 17, 7, 10, 8, 15, 20, 22, 17, 7, 10, 8, 15, 20, 22, 17, 7, 10, 8, 15, 20, 22, 17]
+      data: [7, 10, 8, 15, 20, 22, 17]
     }
   ]
 })
@@ -68,6 +69,10 @@ const addPoint = () => {
   chartData.labels.push(0)
   chartData.datasets[0].data.push(0)
 }
+
+const updateLineColor = (event) => {
+  chartOptions.elements.line.borderColor = event.cssColor;
+}
 </script>
 
 <template >
@@ -114,6 +119,10 @@ const addPoint = () => {
         </button>
       </div>
       <div>
+        Color
+        <ColorPicker :visibleFormats="['hex']" @color-change="updateLineColor"
+          :color="chartOptions.elements.line.borderColor" />
+
         Tension
         <VueSlider class="mb-5" v-model="tension" min="0" max="100" interval="1" @change="handleTensionChange"
           :dot-style="{borderColor: '#4B5563'}" :process-style="{backgroundColor: '#4B5563'}">
