@@ -5,6 +5,10 @@ import Setting from "../components/Setting.vue";
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import ColorInput from 'vue-color-input'
+import { provideToast, useToast, POSITION, TYPE } from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
+provideToast({ timeout: 1500 })
 
 const chartData = reactive({
   labels: [0, 1, 2, 3, 4, 5, 6],
@@ -55,13 +59,17 @@ const handleTensionChange = (value) => {
 }
 
 
-
 const copyLineCanvas = () => {
   const canvas = document.getElementById("line-canvas")
+
 
   canvas.toBlob((blob) => {
     const item = new ClipboardItem({ "image/png": blob });
     navigator.clipboard.write([item]);
+
+    const toast = useToast();
+
+    toast("Copied", { type: TYPE.DEFAULT })
   });
 
 }
@@ -183,5 +191,9 @@ const downloadAsImage = () => {
 
 .color-input.user .text-input {
   @apply border rounded;
+}
+
+.Vue-Toastification__toast--default.simple-toast {
+  @apply bg-gray-800;
 }
 </style>
