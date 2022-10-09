@@ -85,8 +85,8 @@ const downloadAsImage = () => {
 </script>
 
 <template >
-  <div class="p-10 flex w-full">
-    <div class="w-3/5 flex flex-col items-center">
+  <div class="sm:p-10 sm:flex w-full">
+    <div class="sm:w-3/5 flex flex-col items-center">
       <LineCanvas class="border rounded-lg" chart-id="line-canvas" :chartData="chartData"
         :chartOptions="chartOptions" />
 
@@ -106,7 +106,7 @@ const downloadAsImage = () => {
 
     </div>
 
-    <div class="grow pl-5 mr-10 w-[calc(100%/3-1rem)]">
+    <div class="grow pl-5 mr-10 sm:w-[calc(100%/3-1rem)]">
 
       <div class="mb-10">
         Data

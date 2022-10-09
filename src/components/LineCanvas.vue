@@ -37,6 +37,7 @@ const props = defineProps({
 
 
 <template>
-  <Line :chart-data="props.chartData" :chart-options="props.chartOptions" style="width: 50vw;" />
+  <Line :chart-data="props.chartData" :chart-options="props.chartOptions"
+    class="w-[var(--width,calc(vw))] sm:w-[var(--width,calc(50vw))]" />
 </template>
 
