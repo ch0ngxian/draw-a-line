@@ -4,7 +4,7 @@ import LineCanvas from "../components/LineCanvas.vue";
 import Setting from "../components/Setting.vue";
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
-import { ColorPicker } from 'vue-accessible-color-picker'
+import ColorInput from 'vue-color-input'
 
 const chartData = reactive({
   labels: [0, 1, 2, 3, 4, 5, 6],
@@ -70,9 +70,6 @@ const addPoint = () => {
   chartData.datasets[0].data.push(0)
 }
 
-const updateLineColor = (event) => {
-  chartOptions.elements.line.borderColor = event.cssColor;
-}
 </script>
 
 <template >
@@ -101,27 +98,32 @@ const updateLineColor = (event) => {
 
       <div class="mb-10">
         Data
-        <div class="flex overflow-scroll">
-          <template v-for="(item, index) in chartData.datasets[0].data" :key="index">
-            <input class="border p-2 rounded mr-1 mt-2 w-14" v-model="chartData.datasets[0].data[index]" />
-          </template>
+        <div class="flex">
+          <div class="flex overflow-scroll">
+            <template v-for="(item, index) in chartData.datasets[0].data" :key="index">
+              <input class="border px-2 rounded mr-1 mt-2 w-14" v-model="chartData.datasets[0].data[index]" />
+            </template>
+          </div>
+          <button
+            class="mt-2 group relative flex justify-center rounded-md border border-transparent bg-gray-700 py-2 px-4 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
+            @click="addPoint">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
+              viewBox="0 0 24 24" stroke-width="1.5" stroke="white" fill="none" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+          </button>
         </div>
-        <button
-          class="mt-3 group relative flex justify-center rounded-md border border-transparent bg-gray-700 py-2 px-4 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
-          @click="addPoint">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
-            viewBox="0 0 24 24" stroke-width="1.5" stroke="white" fill="none" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <line x1="12" y1="5" x2="12" y2="19" />
-            <line x1="5" y1="12" x2="19" y2="12" />
-          </svg>
-        </button>
+
+
       </div>
       <div>
         Color
-        <ColorPicker :visibleFormats="['hex']" @color-change="updateLineColor"
-          :color="chartOptions.elements.line.borderColor" />
+        <div class="mt-1 mb-2">
+          <ColorInput v-model="chartOptions.elements.line.borderColor" />
+        </div>
 
         Tension
         <VueSlider class="mb-5" v-model="tension" min="0" max="100" interval="1" @change="handleTensionChange"
