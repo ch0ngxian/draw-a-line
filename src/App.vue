@@ -4,7 +4,7 @@ import Header from "./components/Header.vue";
 </script>
 
 <template>
-  <div>
+  <div class="bg-white">
     <Header></Header>
     <DrawingPanel></DrawingPanel>
   </div>
