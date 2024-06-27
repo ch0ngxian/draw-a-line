@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
 import LineCanvas from "../components/LineCanvas.vue";
 import Setting from "../components/Setting.vue";
 import VueSlider from 'vue-slider-component'
@@ -9,6 +9,8 @@ import { provideToast, useToast, POSITION, TYPE } from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
 provideToast({ timeout: 1500 })
+
+const dataPointsString = ref("7, 10, 8, 15, 20, 22, 17")
 
 const chartData = reactive({
   labels: [0, 1, 2, 3, 4, 5, 6],
@@ -50,14 +52,13 @@ const chartOptions = reactive({
     legend: {
       display: false
     },
-  }
+  },
 })
 const tension = ref(30)
 
 const handleTensionChange = (value) => {
   chartOptions.elements.line.tension = value / 100;
 }
-
 
 const copyLineCanvas = () => {
   const canvas = document.getElementById("line-canvas")
@@ -74,11 +75,10 @@ const copyLineCanvas = () => {
 
 }
 
-const addPoint = () => {
-  chartData.labels.push(0)
-  chartData.datasets[0].data.push(0)
-}
-
+watch(dataPointsString, async (newDataPointsString) => {
+  chartData.labels = newDataPointsString.split(",").map((_, index) => index)
+  chartData.datasets[0].data = newDataPointsString.split(",").map(Number)
+})
 
 const downloadAsImage = () => {
   const canvas = document.getElementById("line-canvas")
@@ -95,8 +95,7 @@ const downloadAsImage = () => {
 <template >
   <div class="sm:p-10 sm:flex w-full">
     <div class="sm:w-3/5 flex flex-col items-center">
-      <LineCanvas class="border rounded-lg" chart-id="line-canvas" :chartData="chartData"
-        :chartOptions="chartOptions" />
+      <LineCanvas class="border rounded-lg" chart-id="line-canvas" :chartData="chartData" :chartOptions="chartOptions" />
 
       <div class="flex justify-center mt-10">
         <button
@@ -117,27 +116,10 @@ const downloadAsImage = () => {
     <div class="grow pl-5 mr-10 sm:w-[calc(100%/3-1rem)]">
 
       <div class="mb-10">
-        Data
+        Data points
         <div class="flex">
-          <div class="flex overflow-scroll">
-            <template v-for="(item, index) in chartData.datasets[0].data" :key="index">
-              <input class="border px-2 rounded mr-1 mt-2 w-14" v-model="chartData.datasets[0].data[index]" />
-            </template>
-          </div>
-          <button
-            class="mt-2 group relative flex justify-center rounded-md border border-transparent bg-gray-700 py-2 px-4 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
-            @click="addPoint">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
-              viewBox="0 0 24 24" stroke-width="1.5" stroke="white" fill="none" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-          </button>
+          <textarea class="border rounded-lg w-full h-36 px-2 py-1" v-model="dataPointsString"></textarea>
         </div>
-
-
       </div>
       <div>
         Color
